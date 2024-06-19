@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext} from "react";
+import { KanbanContext } from "../App";
 
 
 //task
@@ -6,8 +7,13 @@ import { useState } from "react";
 //submit
 
 const NewTask = ({taskList, setTaskList}) => {
-    const [taskTitle, setTaskTitle] = useState("")
-    const [taskDescription, setTaskDescription] = useState("")
+    // const [taskTitle, setTaskTitle] = useState("")
+    // const [taskDescription, setTaskDescription] = useState("")
+
+    const {taskTitle, setTaskTitle, taskDescription, setTaskDescription} = useContext(KanbanContext)
+
+    const currentTaskTitle = taskTitle
+    const currentTaskDescription = taskDescription
 
     const handleChange = ({target}) => {
         const {name, value} = target

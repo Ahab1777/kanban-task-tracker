@@ -1,21 +1,15 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { KanbanContext } from "../App"
 
-const Board = ({title, description, index, taskList, setTaskList}) => {
-    const [taskTitle, setTaskTitle] = useState("")
-    const [taskDescription, setTaskDescription] = useState("")
+const Board = ({title, description, index, children}) => {
+    // const [taskTitle, setTaskTitle] = useState(title)
+    // const [taskDescription, setTaskDescription] = useState(description)
+    // const [isDisabled, setIsDisabled] = useState(true)
 
-    const handleChange = ({target}) => {
-        const {name, value} = target
-        if (name === "taskTitle") setTaskTitle(value)
-        if (name === "taskDescription") setTaskDescription(value)
-    }
+    const {taskList, setTaskList, taskTitle, setTaskTitle, taskDescription, setTaskDescription, isDisabled, setIsDisabled} = useContext(KanbanContext)
 
-    const handleEdit = (e) => {
-        e.preventDefault()
-        const newTaskList = [...taskList];
-        newTaskList[index] = {title: taskTitle, description: taskDescription}
-        setTaskList(newTaskList)
-    }
+   
+    console.log(children)
 
     const DeleteTask = () => {
         const newTaskList = [...taskList]
@@ -28,39 +22,10 @@ const Board = ({title, description, index, taskList, setTaskList}) => {
         <div className="board-item">
             <p>{title}</p>
             <p>{description}</p>
-            <button>Edit</button>
+            <button onClick={() => setIsDisabled(false)}>Edit</button>
             <button onClick={DeleteTask}>Delete</button>
-            <div className="task-edit">
-
-                <form className="new-task-form">
-
-                <input className="task-title-input"
-                name="taskTitle"
-                value={taskTitle}
-                type="text" 
-                placeholder="Title" 
-                required minLength={0} 
-                maxLength={16}
-                onChange={handleChange}
-                ></input>
-
-                <input 
-                name="taskDescription"
-                value={taskDescription}
-                type="text" 
-                placeholder="Description" 
-                required maxLength={100}
-                size={50}
-                onChange={handleChange}
-                ></input>
-
-                <button
-                onClick={handleEdit} 
-                type="submit"
-                >Edit
-                </button>
-
-                </form>
+            <div className="task-edit" disabled={isDisabled}>
+                {children}
             </div>
         </div>
         </>
