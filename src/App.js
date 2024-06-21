@@ -45,7 +45,7 @@ function App() {
       {taskList.map((task, i) => {
         return (
           <Board key={i} index={i} title={task.title} description={task.description}>
-            <EditTask index={i}/>
+            <EditTask index={i} title={task.title} description={task.description}/>
           </Board>
         )        
       })}

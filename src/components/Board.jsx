@@ -2,9 +2,6 @@ import { useContext, useState } from "react"
 import { KanbanContext } from "../App"
 
 const Board = ({title, description, index, children}) => {
-    // const [taskTitle, setTaskTitle] = useState(title)
-    // const [taskDescription, setTaskDescription] = useState(description)
-    // const [isDisabled, setIsDisabled] = useState(true)
 
     const {taskList, setTaskList, taskTitle, setTaskTitle, taskDescription, setTaskDescription, isDisabled, setIsDisabled} = useContext(KanbanContext)
 

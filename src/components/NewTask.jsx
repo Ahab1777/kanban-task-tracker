@@ -1,4 +1,4 @@
-import { useContext} from "react";
+import { useContext, useState} from "react";
 import { KanbanContext } from "../App";
 
 
@@ -6,24 +6,21 @@ import { KanbanContext } from "../App";
 //description
 //submit
 
-const NewTask = ({taskList, setTaskList}) => {
-    // const [taskTitle, setTaskTitle] = useState("")
-    // const [taskDescription, setTaskDescription] = useState("")
-
-    const {taskTitle, setTaskTitle, taskDescription, setTaskDescription} = useContext(KanbanContext)
-
-    const currentTaskTitle = taskTitle
-    const currentTaskDescription = taskDescription
-
+const NewTask = () => {
+    //grab context from App
+    const {taskList, setTaskList} = useContext(KanbanContext)
+    //create states to set new task
+    const [taskTitle, setTaskTitle] = useState("")
+    const [taskDescription, setTaskDescription] = useState("")
+    //handle user typing
     const handleChange = ({target}) => {
         const {name, value} = target
         if (name === "taskTitle") setTaskTitle(value)
         if (name === "taskDescription") setTaskDescription(value)
     }
-
+    //send newly created task to taskList on App
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(taskTitle, taskDescription)
         const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription}]
         console.log(newTaskList)
         setTaskList(newTaskList);
