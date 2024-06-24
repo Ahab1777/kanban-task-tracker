@@ -1,6 +1,6 @@
 import './App.css';
 import NewTask from './components/NewTask';
-import Board from './components/Board';
+import BoardCard from './components/BoardCard';
 import EditTask from './components/EditTask';
 import { useState, createContext } from 'react';
 
@@ -44,9 +44,9 @@ function App() {
       
       {taskList.map((task, i) => {
         return (
-          <Board key={i} index={i} title={task.title} description={task.description}>
+          <BoardCard key={i} index={i} title={task.title} description={task.description}>
             <EditTask index={i} title={task.title} description={task.description}/>
-          </Board>
+          </BoardCard>
         )        
       })}
 

@@ -8,6 +8,7 @@ const EditTask = ({index, title, description}) => {
     //create useState to set previous value to current edit
     const [titleEdit, setTitleEdit] = useState(title)
     const [descriptionEdit, setDescriptionEdit] = useState(description)
+    
 
     //handle user typing
     const handleChange = ({target}) => {
