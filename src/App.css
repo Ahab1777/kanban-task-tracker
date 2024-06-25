@@ -14,13 +14,52 @@ body {
 }
 
 @media (max-width: 800px) {
-    .new-task-form {
-        width: 90vw;
-    }
+    
 } */
+
+/* Board */
 
 
 .board-item {
     background-color: blueviolet;
-   
+   /* position: relative; */
+}
+
+.task-edit {
+    background-color: blanchedalmond;
+    position: absolute;
+    top: 20%;
+    left: 20vw;
+    z-index: 100;
+    width: 60vw;
+    max-width: 90vw;
+    max-height: 50vh;
+    display: block;
+    padding: 10px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 10px;
+    
+}
+
+.task-edit label{
+    display: block;
+    font-size: smaller;
+}
+
+.task-edit textarea{
+    width: 300px;
+    height: max-content;
+}
+
+@media (max-width: 800px) {
+    .task-edit {
+        width: 90vw;
+        left: 5vw;
+    }
+}
+
+.new-task-from {
+
 }

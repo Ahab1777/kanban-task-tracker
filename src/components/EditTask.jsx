@@ -27,9 +27,11 @@ const EditTask = ({index, title, description}) => {
 
     return (
         <>
-        <div className="task-edit">
+        
             <form className="new-task-form">
 
+                <div className="task-form-block">
+                <label htmlFor="task-title-input" className="title-input-label">Title</label>
                 <input className="task-title-input"
                 name="taskTitle"
                 value={titleEdit}
@@ -38,17 +40,22 @@ const EditTask = ({index, title, description}) => {
                 required minLength={0} 
                 maxLength={16}
                 onChange={handleChange}
-                ></input>
+                ></input>                
+                </div>
 
-                <input 
+                <div className="task-form-block">
+                <label htmlFor="taskDescription">Description</label>
+                <textarea 
                 name="taskDescription"
                 value={descriptionEdit}
                 type="text" 
+                
                 placeholder="Description" 
-                required maxLength={100}
-                size={50}
+                required
+                maxLength={100}
                 onChange={handleChange}
-                ></input>
+                ></textarea>
+                </div>
 
                 <button
                 onClick={handleEdit} 
@@ -57,7 +64,7 @@ const EditTask = ({index, title, description}) => {
                 </button>
 
             </form>
-        </div>
+        
         </>
     )
 }
