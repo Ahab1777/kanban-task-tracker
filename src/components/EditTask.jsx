@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { KanbanContext } from "../App";
 
-const EditTask = ({index, title, description}) => {
+const EditTask = ({index, title, description, setEditMode}) => {
     //grab context from App.js
     const {taskList, setTaskList} = useContext(KanbanContext)
 
@@ -23,7 +23,14 @@ const EditTask = ({index, title, description}) => {
         const newTaskList = [...taskList];
         newTaskList[index] = {title: titleEdit, description: descriptionEdit}
         setTaskList(newTaskList)
+        setEditMode(false)
     }
+
+    const handleCloseButton = (e) => {
+        e.preventDefault()
+        setEditMode(false)
+    }
+
 
     return (
         <>
@@ -31,30 +38,32 @@ const EditTask = ({index, title, description}) => {
             <form className="new-task-form">
 
                 <div className="task-form-block">
-                <label htmlFor="task-title-input" className="title-input-label">Title</label>
-                <input className="task-title-input"
-                name="taskTitle"
-                value={titleEdit}
-                type="text"
-                placeholder="Title" 
-                required minLength={0} 
-                maxLength={16}
-                onChange={handleChange}
-                ></input>                
+                    <label htmlFor="task-title-input" className="title-input-label">Title</label>
+                    <input className="task-title-input"
+                    name="taskTitle"
+                    value={titleEdit}
+                    type="text"
+                    placeholder="Title" 
+                    required minLength={0} 
+                    maxLength={16}
+                    onChange={handleChange}
+                    ></input>                
                 </div>
 
+                <button onClick={handleCloseButton}>X</button>
+
                 <div className="task-form-block">
-                <label htmlFor="taskDescription">Description</label>
-                <textarea 
-                name="taskDescription"
-                value={descriptionEdit}
-                type="text" 
-                
-                placeholder="Description" 
-                required
-                maxLength={100}
-                onChange={handleChange}
-                ></textarea>
+                    <label htmlFor="taskDescription">Description</label>
+                    <textarea 
+                    name="taskDescription"
+                    value={descriptionEdit}
+                    type="text" 
+                    
+                    placeholder="Description" 
+                    required
+                    maxLength={100}
+                    onChange={handleChange}
+                    ></textarea>
                 </div>
 
                 <button

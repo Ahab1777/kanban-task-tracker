@@ -19,10 +19,20 @@ body {
 
 /* Board */
 
+.board-container {
+    display: flex;
+    justify-content:space-evenly;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    column-gap: 1em;
+    row-gap: 1em;
+}
 
 .board-item {
     background-color: blueviolet;
-   /* position: relative; */
+    max-width: 90vw;
+    min-width: 40vw;
+    border-radius: 5px;
 }
 
 .task-edit {
@@ -60,6 +70,6 @@ body {
     }
 }
 
-.new-task-from {
-
+.new-task-container {
+    margin: 5px;
 }

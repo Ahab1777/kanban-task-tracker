@@ -24,6 +24,30 @@ function App() {
     {
       title: "learn to fly",
       description: "buy wings and jump from balcony"
+    },
+    {
+      title: "wash dishes",
+      description:"bla bla bla"
+    },
+    {
+      title: "boletos",
+      description: 'pay pay pay pay'
+    },
+    {
+      title: "learn to fly",
+      description: "buy wings and jump from balcony"
+    },
+    {
+      title: "wash dishes",
+      description:"bla bla bla"
+    },
+    {
+      title: "boletos",
+      description: 'pay pay pay pay'
+    },
+    {
+      title: "learn to fly",
+      description: "buy wings and jump from balcony"
     }
   
   ])
@@ -36,19 +60,27 @@ function App() {
 
       <KanbanContext.Provider value={{taskTitle, setTaskTitle, taskDescription, setTaskDescription, isDisabled, setIsDisabled, taskList, setTaskList}}>
 
-      <p>Click</p>
+      <div className='new-task-container'>
+
+      <span>Click </span>
       
       <NewTask/>
       
-      <p>to add a new task</p>
-      
+      <span> to add a new task</span>
+
+      </div>
+
+      <div className='board-container'>
+
       {taskList.map((task, i) => {
         return (
-          <BoardCard key={i} index={i} title={task.title} description={task.description}>
-            <EditTask index={i} title={task.title} description={task.description}/>
+          <BoardCard key={i} index={i} title={task.title} description={task.description}>  
           </BoardCard>
         )        
       })}
+
+      </div>
+      
 
       </KanbanContext.Provider>
 
