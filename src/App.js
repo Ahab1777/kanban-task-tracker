@@ -56,7 +56,7 @@ function App() {
     <>
     <div className="App">
 
-    <h1>Kanban task manager</h1>
+    <h1>Kanban Task Manager</h1>
 
       <KanbanContext.Provider value={{taskTitle, setTaskTitle, taskDescription, setTaskDescription, isDisabled, setIsDisabled, taskList, setTaskList}}>
 

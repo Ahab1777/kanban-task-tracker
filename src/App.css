@@ -1,4 +1,4 @@
-/* * {
+* {
     box-sizing: border-box;
 }
 
@@ -7,15 +7,11 @@ body {
 }
 
 
-.new-task-form {
-    position: fixed;
-    height: 300px;
-    width: 60vw;
+h1 {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
 }
 
-@media (max-width: 800px) {
-    
-} */
 
 /* Board */
 
@@ -29,20 +25,25 @@ body {
 }
 
 .board-item {
-    background-color: blueviolet;
-    max-width: 90vw;
-    min-width: 40vw;
+    background-color:aquamarine;
+    width: clamp(200px, 85vw, 400px);
+    
+    padding: 5px;
     border-radius: 5px;
+    ;
 }
+
+/* --- edit--- */
 
 .task-edit {
     background-color: blanchedalmond;
     position: absolute;
     top: 20%;
-    left: 20vw;
+    left: 10vw;
+    /* left: 20vw; */
     z-index: 100;
-    width: 60vw;
-    max-width: 90vw;
+    width: clamp(100px, 80vw, 600px );
+    height: 500px;
     max-height: 50vh;
     display: block;
     padding: 10px;
@@ -53,23 +54,194 @@ body {
     
 }
 
+
+.edit-task-form {
+    /* position: fixed; */
+    height: clamp(350px, 60vh, 600px);
+    width:100%;
+    /* flex-direction: column; */
+    /* align-content: center; */
+    
+}
+
+
 .task-edit label{
     display: block;
     font-size: smaller;
 }
 
+
+.new-task-form input, textarea{
+    width: 80%;
+}
 .task-edit textarea{
-    width: 300px;
-    height: max-content;
+    height: 100%;
+    background-color: #c9c7c7;
+    color: rgb(35, 35, 35);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.2s;
+    outline: none;
 }
 
-@media (max-width: 800px) {
-    .task-edit {
-        width: 90vw;
-        left: 5vw;
-    }
+.task-edit textarea:hover {
+    background-color: #e0dfdf;
+    color: black;
+    
 }
+
+.task-edit textarea:focus {
+    background-color: #f8f6f6;
+    color: black;
+    border-color: black;
+    
+}
+
+.task-edit input{
+    height: 100%;
+    background-color: #c9c7c7;
+    color: rgb(35, 35, 35);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.task-edit input:hover {
+    background-color: #e0dfdf;
+    color: black;
+    
+}
+
+.task-edit input:focus {
+    background-color: #f8f6f6;
+    color: black;
+    border-color: black;
+    
+}
+
+.title-block {
+    width: 100%;
+}
+
+.description-block {
+    width: 100%;
+    height: clamp(200px, 50%, 400px )
+}
+
+.close-button-edit {
+    position: absolute;
+    right: 10px;
+}
+
+.confirm-button-edit {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+
+/* ---new task--- */
+
 
 .new-task-container {
     margin: 5px;
+}
+
+.new-task-popup {
+    background-color: blanchedalmond;
+    position: absolute;
+    top: 20%;
+    left: 10vw;
+    /* left: 20vw; */
+    z-index: 100;
+    width: clamp(100px, 80vw, 600px );
+    height: 500px;
+    max-height: 50vh;
+    display: block;
+    padding: 10px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+.new-task-form label{
+    display: block;
+    font-size: smaller;
+}
+
+.close-button-new-task {
+    position: absolute;
+    right: 10px;
+}
+
+.confirm-button-new-task {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+.new-task-form {
+    height: clamp(350px, 60vh, 600px);
+    width:100%;
+}
+
+.new-task-popup 
+
+
+.new-task-form  textarea{
+    height: 100%;
+    background-color: #c9c7c7;
+    color: rgb(35, 35, 35);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.new-task-form  textarea:hover {
+    background-color: #e0dfdf;
+    color: black;
+    
+}
+
+.new-task-form  textarea:focus {
+    background-color: #f8f6f6;
+    color: black;
+    border-color: black;
+    
+}
+
+.new-task-popup  input{
+    height: 100%;
+    background-color: #c9c7c7;
+    color: rgb(35, 35, 35);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.new-task-popup  input:hover {
+    background-color: #e0dfdf;
+    color: black;
+    
+}
+
+.new-task-popup  input:focus {
+    background-color: #f8f6f6;
+    color: black;
+    border-color: black;
+    
 }

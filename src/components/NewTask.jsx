@@ -38,34 +38,45 @@ const NewTask = () => {
     <button className="new-task-button" onClick={() => setTaskEdit(true)}>Here</button>
 
     
-        {taskEdit ? <div className="task-edit">
+        {taskEdit ? <div className="new-task-popup">
         
-            <form>
+            <form className="new-task-form">
+                <button className="close-button-new-task" onClick={handleCloseButton}>X</button>
 
-                <input className="task-title-input"
-                name="taskTitle"
-                value={taskTitle}
-                type="text" 
-                placeholder="Title" 
-                required minLength={0} 
-                maxLength={16}
-                onChange={handleChange}
-                ></input>
+                <div className="title-block">
 
-                <button onClick={handleCloseButton}>X</button>
+                    <label htmlFor="taskTitle">Title</label>
+                    <input className="task-title-input"
+                    name="taskTitle"
+                    value={taskTitle}
+                    type="text" 
+                    placeholder="Title" 
+                    required minLength={0} 
+                    maxLength={16}
+                    onChange={handleChange}
+                    ></input>
 
-                <input 
-                name="taskDescription"
-                value={taskDescription}
-                type="text" 
-                placeholder="description" 
-                required
-                maxLength={100}
-                size={50}
-                onChange={handleChange}
-                ></input>
+                </div>
+
+                <div className="description-block">
+
+                    <label htmlFor="taskDescription">Description</label>
+                    <textarea 
+                    name="taskDescription"
+                    value={taskDescription}
+                    type="text" 
+                    placeholder="description" 
+                    required
+                    maxLength={100}
+                    size={50}
+                    onChange={handleChange}
+                    ></textarea>
+
+                </div>
+
 
                 <button
+                className="confirm-button-new-task"
                 onClick={handleSubmit} 
                 type="submit"
                 >Submit

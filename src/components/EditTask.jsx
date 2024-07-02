@@ -34,10 +34,13 @@ const EditTask = ({index, title, description, setEditMode}) => {
 
     return (
         <>
-        
-            <form className="new-task-form">
+                        {/* div - task-edit */}
+            <form className="edit-task-form">
+                
+                <button className="close-button-edit" onClick={handleCloseButton}>X</button>
 
-                <div className="task-form-block">
+                <div className="title-block">
+
                     <label htmlFor="task-title-input" className="title-input-label">Title</label>
                     <input className="task-title-input"
                     name="taskTitle"
@@ -47,12 +50,13 @@ const EditTask = ({index, title, description, setEditMode}) => {
                     required minLength={0} 
                     maxLength={16}
                     onChange={handleChange}
-                    ></input>                
+                    ></input>         
+
                 </div>
 
-                <button onClick={handleCloseButton}>X</button>
 
-                <div className="task-form-block">
+                <div className="description-block">
+
                     <label htmlFor="taskDescription">Description</label>
                     <textarea 
                     name="taskDescription"
@@ -64,9 +68,11 @@ const EditTask = ({index, title, description, setEditMode}) => {
                     maxLength={100}
                     onChange={handleChange}
                     ></textarea>
+
                 </div>
 
                 <button
+                className="confirm-button-edit"
                 onClick={handleEdit} 
                 type="submit"
                 >Edit
