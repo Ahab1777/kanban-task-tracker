@@ -8,7 +8,7 @@ import { KanbanContext } from "../App";
 
 const NewTask = () => {
     //grab context from App
-    const {taskList, setTaskList} = useContext(KanbanContext)
+    const {taskList, setTaskList, setIsDisabled} = useContext(KanbanContext)
     //create states to set new task
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
@@ -22,25 +22,35 @@ const NewTask = () => {
     //send newly created task to taskList on App
     const handleSubmit = (e) => {
         e.preventDefault()
-        const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription}]
+        const currentDate = new Date();
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        const createdOn = `${currentDate.getDay()}/${months[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
+        const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription, createdOn}]
+        console.log(createdOn)
         setTaskList(newTaskList);
+        setIsDisabled(false)
         setTaskEdit(false)
     }
 
     const handleCloseButton = (e) => {
         e.preventDefault()
+        
+        setIsDisabled(false)
         setTaskEdit(false)
     }
 
     
     return(
     <>
-    <button className="new-task-button" onClick={() => setTaskEdit(true)}>Here</button>
+    <button className="new-task-button" onClick={() => {
+        setTaskEdit(true)
+        setIsDisabled(true)
+    }}>Here</button>
 
     
         {taskEdit ? <div className="new-task-popup">
-        
-            <form className="new-task-form">
+            
+            <form className="new-task-form" disabled={true}>
                 <button className="close-button-new-task" onClick={handleCloseButton}>X</button>
 
                 <div className="title-block">

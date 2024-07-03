@@ -4,13 +4,13 @@ import EditTask from "./EditTask"
 
 export const BoardContext = createContext(null)
 
-const BoardCard = ({title, description, index, key}) => {
-
-    const {taskList, setTaskList, taskTitle, setTaskTitle, taskDescription, setTaskDescription, isDisabled, setIsDisabled} = useContext(KanbanContext)
+const BoardCard = ({title, description, index, createdOn}) => {
+    // context fetcher
+    const {taskList, setTaskList, setIsDisabled} = useContext(KanbanContext)
     //state managing edit mode activation
     const [editMode,setEditMode] = useState(false)
 
-    //create context for editMode to be passes to children
+    //create context for editMode to be passed to children
    
 
     const DeleteTask = () => {
@@ -21,19 +21,26 @@ const BoardCard = ({title, description, index, key}) => {
 
     return (
         <>
-        <BoardContext.Provider value={editMode}>
+        {/* <BoardContext.Provider value={editMode}> */}
             <div className="board-item">
-                <p>{title}</p>
-                <p>{description}</p>
-                <button onClick={() => setEditMode(true)}>Edit</button>
+                <label htmlFor="task-title">Title</label>
+                <p name="task-title">{title}</p>
+                <label htmlFor="task-description">Description</label>
+                <p name="task-description">{description}</p>
+                <label htmlFor="createdOn"></label>
+                <p>{createdOn}</p>
+                <button onClick={() => {
+                    setEditMode(true)
+                    setIsDisabled(true)
+                }}>Edit</button>
                 <button onClick={DeleteTask}>Delete</button>
                 {editMode ? 
-                <div className="task-edit"> 
+                <div className="task-edit" > 
                     <EditTask index={index} title={title} description={description} setEditMode={setEditMode}/>
                 </div> : null                
             }
             </div>
-        </BoardContext.Provider>
+        {/* </BoardContext.Provider> */}
         </>
     )
 }

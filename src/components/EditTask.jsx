@@ -3,7 +3,8 @@ import { KanbanContext } from "../App";
 
 const EditTask = ({index, title, description, setEditMode}) => {
     //grab context from App.js
-    const {taskList, setTaskList} = useContext(KanbanContext)
+    const {taskList, setTaskList, setIsDisabled} = useContext(KanbanContext)
+    
 
     //create useState to set previous value to current edit
     const [titleEdit, setTitleEdit] = useState(title)
@@ -23,11 +24,13 @@ const EditTask = ({index, title, description, setEditMode}) => {
         const newTaskList = [...taskList];
         newTaskList[index] = {title: titleEdit, description: descriptionEdit}
         setTaskList(newTaskList)
+        setIsDisabled(false)
         setEditMode(false)
     }
 
     const handleCloseButton = (e) => {
         e.preventDefault()
+        setIsDisabled(false)
         setEditMode(false)
     }
 
