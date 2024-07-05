@@ -17,16 +17,22 @@ function App() {
       title: "wash dishes",
       description:"bla bla bla",
       createdOn: '3/July/2024 - 10:17',
+      etc: '0,5' ,
+      colorCode: '0000FF'
     },
     {
       title: "boletos",
       description: 'pay pay pay pay',
       createdOn: '3/July/2024 - 10:17',
+      etc: '0,5' ,
+      colorCode: 'FFFF00'
     },
     {
       title: "learn to fly",
       description: "buy wings and jump from balcony",
       createdOn: '3/July/2024 - 10:17',
+      etc: '2,5' ,
+      colorCode: 'FF0000'
     },
   
   
@@ -56,7 +62,7 @@ function App() {
 
       {taskList.map((task, i) => {
         return (
-          <BoardCard key={i} index={i} title={task.title} description={task.description} createdOn={task.createdOn}>  
+          <BoardCard key={i} index={i} title={task.title} description={task.description} createdOn={task.createdOn} etc={task.etc}>  
           </BoardCard>
         )        
       })}

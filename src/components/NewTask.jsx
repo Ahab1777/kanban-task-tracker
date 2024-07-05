@@ -58,6 +58,7 @@ const NewTask = () => {
                     <label htmlFor="taskTitle">Title</label>
                     <input className="task-title-input"
                     name="taskTitle"
+                    id="taskTitle"
                     value={taskTitle}
                     type="text" 
                     placeholder="Title" 
@@ -68,11 +69,23 @@ const NewTask = () => {
 
                 </div>
 
+                <div className="color-block">
+                    <input type="radio" name="colorCode" id="radioBlue" value={'0000FF'}></input>
+                    <label htmlFor="radioBlue">Blue</label>
+                    
+                    <input type="radio" name="colorCode" id="radioYellow" value={'FFFF00'}></input>
+                    <label htmlFor="radioYellow">Yellow</label>
+
+                    <input type="radio" name="colorCode" id="radioRed" value={'FF0000'} checked></input>
+                    <label htmlFor="radioRed">Red</label>
+                </div>
+
                 <div className="description-block">
 
                     <label htmlFor="taskDescription">Description</label>
                     <textarea 
                     name="taskDescription"
+                    id="taskDescription"
                     value={taskDescription}
                     type="text" 
                     placeholder="description" 

@@ -20,6 +20,24 @@ h1 {
     height: 100vh;
 }
 
+.delete-confirmation {
+    background-color: blanchedalmond;
+    position: absolute;
+    top: 20%;
+    left: 10vw;
+    /* left: 20vw; */
+    z-index: 100;
+    width: clamp(100px, 80vw, 600px );
+    height: 500px;
+    max-height: 50vh;
+    display: block;
+    padding: 10px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 10px;
+}
+
 /* Board */
 
 .board-container {
@@ -143,7 +161,7 @@ h1 {
 
 .description-block {
     width: 100%;
-    height: clamp(200px, 50%, 400px )
+    height: max-content;
 }
 
 .close-button-edit {
@@ -202,7 +220,7 @@ h1 {
 
 
 .new-task-form {
-    height: clamp(350px, 60vh, 600px);
+    height: 100%;
     width:100%;
 }
 
