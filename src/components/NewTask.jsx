@@ -1,4 +1,4 @@
-import { useContext, useState} from "react";
+import { useContext, useState, useRef} from "react";
 import { KanbanContext } from "../App";
 
 
@@ -8,11 +8,25 @@ import { KanbanContext } from "../App";
 
 const NewTask = () => {
     //grab context from App
-    const {taskList, setTaskList, setIsDisabled} = useContext(KanbanContext)
+    const {taskList, setTaskList} = useContext(KanbanContext)
+
     //create states to set new task
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
     const [taskEdit, setTaskEdit] = useState(false)
+
+    //useRef for modal form and its toggle function
+    const newTaskModal = useRef(null)
+
+    function toggleNewTaskModal() {
+        if (!newTaskModal.current){
+            return;
+        }
+        newTaskModal.current.hasAttribute("open")
+        ? newTaskModal.current.close()
+        : newTaskModal.current.showModal()
+    }
+
     //handle user typing
     const handleChange = ({target}) => {
         const {name, value} = target
@@ -26,32 +40,23 @@ const NewTask = () => {
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         const createdOn = `${currentDate.getDay()}/${months[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
         const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription, createdOn}]
-        console.log(createdOn)
+        toggleNewTaskModal()
         setTaskList(newTaskList);
-        setIsDisabled(false)
+        // setIsDisabledlfalse)
         setTaskEdit(false)
     }
 
-    const handleCloseButton = (e) => {
-        e.preventDefault()
-        
-        setIsDisabled(false)
-        setTaskEdit(false)
-    }
-
-    
+   
     return(
     <>
-    <button className="new-task-button" onClick={() => {
-        setTaskEdit(true)
-        setIsDisabled(true)
-    }}>Here</button>
+    <button className="new-task-button" onClick={toggleNewTaskModal}>Here</button>
 
     
-        {taskEdit ? <div className="new-task-popup">
-            
-            <form className="new-task-form" disabled={true}>
-                <button className="close-button-new-task" onClick={handleCloseButton}>X</button>
+        <dialog ref={newTaskModal}>
+
+
+            <form className="new-task-form" disabled={true} method="dialog">
+                <button className="close-button-new-task" onClick={toggleNewTaskModal}>X</button>
 
                 <div className="title-block">
 
@@ -106,9 +111,10 @@ const NewTask = () => {
                 </button>
 
             </form>
+        </dialog>
+            
 
-        </div> : null}
-
+       
 
     
     </>

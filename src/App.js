@@ -1,7 +1,6 @@
 import './App.css';
 import NewTask from './components/NewTask';
 import BoardCard from './components/BoardCard';
-import EditTask from './components/EditTask';
 import { useState, createContext } from 'react';
 
 export const KanbanContext = createContext(null)
@@ -11,7 +10,6 @@ function App() {
   
   const [taskTitle, setTaskTitle] = useState("")
   const [taskDescription, setTaskDescription] = useState("")
-  const [isDisabled, setIsDisabled] = useState(false)
   const [taskList, setTaskList] = useState([
     {
       title: "wash dishes",
@@ -45,8 +43,8 @@ function App() {
 
     <h1>Kanban Task Manager</h1>
 
-      <KanbanContext.Provider value={{taskTitle, setTaskTitle, taskDescription, setTaskDescription, isDisabled, setIsDisabled, taskList, setTaskList}}>
-      {isDisabled ? <div className="disabler"></div> : null}      
+      <KanbanContext.Provider value={{taskTitle, setTaskTitle, taskDescription, setTaskDescription, taskList, setTaskList}}>
+           
       
       <div className='new-task-container'>
 
