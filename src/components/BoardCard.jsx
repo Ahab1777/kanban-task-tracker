@@ -4,7 +4,7 @@ import EditTask from "./EditTask"
 
 export const BoardContext = createContext(null)
 
-const BoardCard = ({title, description, index, createdOn, etc}) => {
+const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
     // context fetcher
     const {taskList, setTaskList, setIsDisabled} = useContext(KanbanContext)
     //state managing edit mode activation
@@ -14,11 +14,6 @@ const BoardCard = ({title, description, index, createdOn, etc}) => {
 
     //create context for editMode to be passed to children
    
-
-    const DeleteConfirmation = () => {
-
-    }
-
     const DeleteTask = () => {
         const newTaskList = [...taskList]
         newTaskList.splice(index, 1)
@@ -26,10 +21,11 @@ const BoardCard = ({title, description, index, createdOn, etc}) => {
         setConfirmDelete(false)
     }
 
+    
     return (
         <>
         
-            <div className="board-item">
+            <div className="board-item item-backbround" style={{backgroundColor: colorCode}}>
                 <label htmlFor="task-title">Title</label>
                 <p name="task-title">{title}</p>
                 <label htmlFor="task-description">Description</label>
@@ -37,15 +33,17 @@ const BoardCard = ({title, description, index, createdOn, etc}) => {
                 <label htmlFor="createdOn"></label>
                 <p name="createdOn">{createdOn}</p>
                 <label htmlFor="etc"></label>
-                <p name="etc">ETC: <span>{etc}</span> hours</p>
+                <p name="etc">ETC:
+                     {etc >= 60 
+                    ? <span>{etc/60} h</span>
+                    : <span>{etc} min</span>}</p>
                 <button onClick={() => {
                     setEditMode(true)
-                    setIsDisabled(true)
                 }}>Edit</button>
                 <button onClick={() => {setConfirmDelete(true)}}>Delete</button>
                 {editMode ? 
                 <div className="task-edit" > 
-                    <EditTask index={index} title={title} description={description} setEditMode={setEditMode}/>
+                    <EditTask index={index} title={title} description={description} setEditMode={setEditMode} createdOn={createdOn} etc={etc} colorCode={colorCode} />
                 </div> : null                
             }
                 {confirmDelete ?

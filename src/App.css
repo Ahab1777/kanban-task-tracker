@@ -50,7 +50,8 @@ h1 {
 }
 
 .board-item {
-    background-color:aquamarine;
+    background-color: #add8e6;
+   
     width: clamp(200px, 85vw, 400px);
     
     padding: 5px;
@@ -157,6 +158,7 @@ h1 {
 
 .title-block {
     width: 100%;
+    
 }
 
 .description-block {
