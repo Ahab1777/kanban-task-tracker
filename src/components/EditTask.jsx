@@ -1,7 +1,7 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef} from "react";
 import { KanbanContext } from "../App";
 
-const EditTask = ({setEditMode, title, description, index, createdOn, etc, colorCode}) => {
+const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
     //grab context from App.js
     const {taskList, setTaskList} = useContext(KanbanContext)
     
@@ -9,6 +9,9 @@ const EditTask = ({setEditMode, title, description, index, createdOn, etc, color
     //create useState to set previous value to current edit
     const [titleEdit, setTitleEdit] = useState(title)
     const [descriptionEdit, setDescriptionEdit] = useState(description)
+    const [completionTimeEdit, setCompletionTimeEdit] = useState(etc)
+    const [colorCodeEdit, setColorCodeEdit] = useState(colorCode)
+    
     
 
     //handle user typing
@@ -18,65 +21,67 @@ const EditTask = ({setEditMode, title, description, index, createdOn, etc, color
         if (name === "taskDescription") setDescriptionEdit(value)
     }
 
-    //set newly edit task to taskList
+    //handle color change
+    function handleColorChange({target}) {
+        setColorCodeEdit(target.value)
+    }
+
+    //set newly edited task to taskList
     const handleEdit = (e) => {
         e.preventDefault()
         const newTaskList = [...taskList];
-        newTaskList[index] = [ ...taskList, {title: taskTitle, description: taskDescription, createdOn, fullDate: currentDate, etc: completionTime, colorCode}]
+        newTaskList[index] = {title: titleEdit, description: descriptionEdit, createdOn, etc: completionTimeEdit, colorCode: colorCodeEdit}
         setTaskList(newTaskList)
-        setEditMode(false)
+        toggleEditTaskModal()
     }
 
-    const handleCloseButton = (e) => {
-        e.preventDefault()
-        setEditMode(false)
-    }
+     //useRef for modal form and its toggle function - also responsible for masking background while modal is open
+    const editTaskModal = useRef(null)
 
-    //useRef for modal form and its toggle function - also responsible for masking background while modal is open
-    const newTaskModal = useRef(null)
-
-    function toggleNewTaskModal() {
-        if (!newTaskModal.current){
+    function toggleEditTaskModal() {
+        if (!editTaskModal.current){
             return;
         }
-        newTaskModal.current.hasAttribute("open")
-        ? newTaskModal.current.close() && setEditMode(false)
-        : newTaskModal.current.showModal()
+        editTaskModal.current.hasAttribute("open")
+        ? editTaskModal.current.close()
+        : editTaskModal.current.showModal()
     }
 
 
     //handle task time button
     function handleTime(e) {
         const timeCommand = e.target.value;
+        e.preventDefault()
         
         switch (timeCommand) {
             case "decreaseTime":
                 //do not decrease time below 15min
-                if(completionTime <= 15 ){
+                if(completionTimeEdit <= 15 ){
                     break;
                 }
-                setCompletionTime(prevTime => prevTime - 15);
+                setCompletionTimeEdit(prevTime => prevTime - 15);
                 break;
-                case "increaseTime":
-                    //do not increase time above 480min/8h
-                    if(completionTime >= 480 ){
-                        break;
-                    }
-                    setCompletionTime(prevTime => prevTime + 15);
+            case "increaseTime":
+                //do not increase time above 480min/8h
+                if(completionTimeEdit >= 480 ){
                     break;
-                    default:
-                        break;
-                    }
                 }
+                setCompletionTimeEdit(prevTime => prevTime + 15);
+                break;
+            default:
+                break;
+            }
+            }
 
 
     return (
         <>
-            <dialog ref={newTaskModal} style={{backgroundColor: colorCode}}>
+            <button className="edit-task-button" onClick={toggleEditTaskModal}>Edit</button>
+            <dialog ref={editTaskModal} style={{backgroundColor: colorCodeEdit}}>
 
 
-                <form className="new-task-form" disabled={true} method="dialog">
-                    <button className="close-button-new-task" onClick={toggleNewTaskModal}>X</button>
+                <form className="new-task-form" method="dialog">
+                    <button className="close-button-new-task" onClick={toggleEditTaskModal}>X</button>
 
                     <div className="title-block">
 
@@ -84,7 +89,7 @@ const EditTask = ({setEditMode, title, description, index, createdOn, etc, color
                         <input className="task-title-input"
                         name="taskTitle"
                         id="taskTitle"
-                        value={taskTitle}
+                        value={titleEdit}
                         type="text" 
                         placeholder="Title" 
                         minLength={0} 
@@ -130,9 +135,9 @@ const EditTask = ({setEditMode, title, description, index, createdOn, etc, color
 
                     <div className="time-block">
                         <label htmlFor="etc-input">Time to Complete</label>
-                        {completionTime >= 60 
-                        ? <span>{completionTime/60} h</span>
-                        : <span>{completionTime} min</span>}
+                        {completionTimeEdit >= 60 
+                        ? <span>{completionTimeEdit/60} h</span>
+                        : <span>{completionTimeEdit} min</span>}
                         <button value="increaseTime" onClick={handleTime}>&uarr;</button>
                         <button value="decreaseTime" onClick={handleTime}>&darr;</button>                    
                     </div>
@@ -143,7 +148,7 @@ const EditTask = ({setEditMode, title, description, index, createdOn, etc, color
                         <textarea 
                         name="taskDescription"
                         id="taskDescription"
-                        value={taskDescription}
+                        value={descriptionEdit}
                         type="text" 
                         placeholder="description" 
                         maxLength={100}
@@ -156,15 +161,16 @@ const EditTask = ({setEditMode, title, description, index, createdOn, etc, color
 
                     <button
                     className="confirm-button-new-task"
-                    onClick={handleSubmit} 
+                    onClick={handleEdit} 
                     type="submit"
-                    >Submit
+                    >Edit
                     </button>
 
                 </form>
             </dialog>
-        
         </>
+        
+        
     )
 }
 

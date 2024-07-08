@@ -1,16 +1,25 @@
-import { useContext, useState, createContext } from "react"
+import { useContext, useState, createContext, useRef } from "react"
 import { KanbanContext } from "../App"
 import EditTask from "./EditTask"
 
 export const BoardContext = createContext(null)
 
+
+
 const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
     // context fetcher
-    const {taskList, setTaskList, setIsDisabled} = useContext(KanbanContext)
-    //state managing edit mode activation
-    const [editMode,setEditMode] = useState(false)
-    //
+    const {taskList, setTaskList} = useContext(KanbanContext)
+    //confirmation delete
     const [confirmDelete, setConfirmDelete] = useState(false)
+
+    //useRef for deletion confirmation modal
+    const deletionConfirm = useRef(null)
+
+    function toggleDeleteModal() {
+        deletionConfirm.current.hasAttribute("open")
+        ? deletionConfirm.current.close()
+        : deletionConfirm.current.showModal()
+    }
 
     //create context for editMode to be passed to children
    
@@ -37,21 +46,20 @@ const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
                      {etc >= 60 
                     ? <span>{etc/60} h</span>
                     : <span>{etc} min</span>}</p>
-                <button onClick={() => {
-                    setEditMode(true)
-                }}>Edit</button>
-                <button onClick={() => {setConfirmDelete(true)}}>Delete</button>
-                {editMode ? 
-                <div className="task-edit" > 
-                    <EditTask index={index} title={title} description={description} setEditMode={setEditMode} createdOn={createdOn} etc={etc} colorCode={colorCode} />
-                </div> : null                
-            }
-                {confirmDelete ?
-                <div className="delete-confirmation">
-                    <p>Confirm deletion of <span>{title}</span>?</p>
-                    <button onClick={DeleteTask}>Yes</button>
-                    <button onClick={() => {setConfirmDelete(false)}}>No</button>
-                </div> : null }
+
+                <EditTask index={index} title={title} description={description} createdOn={createdOn} etc={etc} colorCode={colorCode}/>
+                
+
+                <button 
+                onClick={() => {
+                    setConfirmDelete(true)
+                    toggleDeleteModal()
+                }}>Delete</button>
+                {confirmDelete 
+                ? <dialog ref={deletionConfirm}> Confirm deletion of <span>{title}</span></dialog>
+                : null}
+            
+               
             </div>
         
         </>

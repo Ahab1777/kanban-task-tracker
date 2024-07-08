@@ -13,7 +13,6 @@ function NewTask() {
     //create states to set new task
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
-    const [taskEdit, setTaskEdit] = useState(false)
     const [completionTime, setCompletionTime] = useState(15)
     const [colorCode, setColorCode] = useState('0000FF')
 
@@ -44,6 +43,8 @@ function NewTask() {
     //handle task time button
     function handleTime(e) {
         const timeCommand = e.target.value;
+        e.preventDefault()
+        console.log(e)
         
         switch (timeCommand) {
             case "decreaseTime":
@@ -53,17 +54,17 @@ function NewTask() {
                 }
                 setCompletionTime(prevTime => prevTime - 15);
                 break;
-                case "increaseTime":
-                    //do not increase time above 480min/8h
-                    if(completionTime >= 480 ){
-                        break;
-                    }
-                    setCompletionTime(prevTime => prevTime + 15);
+            case "increaseTime":
+                //do not increase time above 480min/8h
+                if(completionTime >= 480 ){
                     break;
-                    default:
-                        break;
-                    }
                 }
+                setCompletionTime(prevTime => prevTime + 15);
+                break;
+            default:
+                break;
+            }
+            }
             
 //send newly created task to taskList on App
 const handleSubmit = (e) => {
@@ -75,7 +76,6 @@ const handleSubmit = (e) => {
     toggleNewTaskModal()
     console.log(newTaskList)
     setTaskList(newTaskList);
-    setTaskEdit(false)
 }
             
             return(
