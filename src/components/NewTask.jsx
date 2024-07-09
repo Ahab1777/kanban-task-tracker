@@ -16,6 +16,14 @@ function NewTask() {
     const [completionTime, setCompletionTime] = useState(15)
     const [colorCode, setColorCode] = useState('0000FF')
 
+    //state reset function for clearing form after closing it
+    function resetStates() {
+        setTaskTitle("")
+        setTaskDescription("")
+        setCompletionTime(15)
+        setColorCode('')
+    }
+
     //useRef for modal form and its toggle function - also responsible for masking background while modal is open
     const newTaskModal = useRef(null)
 
@@ -24,7 +32,7 @@ function NewTask() {
             return;
         }
         newTaskModal.current.hasAttribute("open")
-        ? newTaskModal.current.close()
+        ? resetStates() && newTaskModal.current.close()
         : newTaskModal.current.showModal()
     }
 
@@ -44,7 +52,6 @@ function NewTask() {
     function handleTime(e) {
         const timeCommand = e.target.value;
         e.preventDefault()
-        console.log(e)
         
         switch (timeCommand) {
             case "decreaseTime":
@@ -74,7 +81,6 @@ const handleSubmit = (e) => {
     const createdOn = `${currentDate.getDay()}/${months[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
     const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription, createdOn, fullDate: currentDate, etc: completionTime, colorCode}]
     toggleNewTaskModal()
-    console.log(newTaskList)
     setTaskList(newTaskList);
 }
             
@@ -144,8 +150,12 @@ const handleSubmit = (e) => {
                     {completionTime >= 60 
                     ? <span>{completionTime/60} h</span>
                     : <span>{completionTime} min</span>}
+
+                    <div>
                     <button value="increaseTime" onClick={handleTime}>&uarr;</button>
                     <button value="decreaseTime" onClick={handleTime}>&darr;</button>                    
+
+                    </div>
                 </div>
 
                 <div className="description-block">

@@ -16,7 +16,7 @@ function App() {
       description:"bla bla bla",
       createdOn: '3/July/2024 - 10:17',
       fullDate: 'qwe',
-      etc: '30' ,
+      etc: '45' ,
       colorCode: '#add8e6'
     },
     {

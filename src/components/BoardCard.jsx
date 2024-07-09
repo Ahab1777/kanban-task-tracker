@@ -1,6 +1,7 @@
-import { useContext, useState, createContext, useRef } from "react"
+import { useContext, createContext} from "react"
 import { KanbanContext } from "../App"
 import EditTask from "./EditTask"
+import DeleteConfirmation from "./DeleteConfirmation"
 
 export const BoardContext = createContext(null)
 
@@ -9,17 +10,6 @@ export const BoardContext = createContext(null)
 const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
     // context fetcher
     const {taskList, setTaskList} = useContext(KanbanContext)
-    //confirmation delete
-    const [confirmDelete, setConfirmDelete] = useState(false)
-
-    //useRef for deletion confirmation modal
-    const deletionConfirm = useRef(null)
-
-    function toggleDeleteModal() {
-        deletionConfirm.current.hasAttribute("open")
-        ? deletionConfirm.current.close()
-        : deletionConfirm.current.showModal()
-    }
 
     //create context for editMode to be passed to children
    
@@ -27,7 +17,6 @@ const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
         const newTaskList = [...taskList]
         newTaskList.splice(index, 1)
         setTaskList(newTaskList)
-        setConfirmDelete(false)
     }
 
     
@@ -47,17 +36,18 @@ const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
                     ? <span>{etc/60} h</span>
                     : <span>{etc} min</span>}</p>
 
-                <EditTask index={index} title={title} description={description} createdOn={createdOn} etc={etc} colorCode={colorCode}/>
-                
+                <EditTask 
+                index={index} 
+                title={title} 
+                description={description} 
+                createdOn={createdOn} 
+                etc={etc} 
+                colorCode={colorCode}/>                
 
-                <button 
-                onClick={() => {
-                    setConfirmDelete(true)
-                    toggleDeleteModal()
-                }}>Delete</button>
-                {confirmDelete 
-                ? <dialog ref={deletionConfirm}> Confirm deletion of <span>{title}</span></dialog>
-                : null}
+                <DeleteConfirmation 
+                index={index} 
+                title={title} 
+                DeleteTask={DeleteTask}/>
             
                
             </div>

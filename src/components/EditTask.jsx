@@ -9,7 +9,7 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
     //create useState to set previous value to current edit
     const [titleEdit, setTitleEdit] = useState(title)
     const [descriptionEdit, setDescriptionEdit] = useState(description)
-    const [completionTimeEdit, setCompletionTimeEdit] = useState(etc)
+    const [completionTimeEdit, setCompletionTimeEdit] = useState(Number(etc))
     const [colorCodeEdit, setColorCodeEdit] = useState(colorCode)
     
     
@@ -42,6 +42,7 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
         if (!editTaskModal.current){
             return;
         }
+      
         editTaskModal.current.hasAttribute("open")
         ? editTaskModal.current.close()
         : editTaskModal.current.showModal()
@@ -136,10 +137,15 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
                     <div className="time-block">
                         <label htmlFor="etc-input">Time to Complete</label>
                         {completionTimeEdit >= 60 
-                        ? <span>{completionTimeEdit/60} h</span>
-                        : <span>{completionTimeEdit} min</span>}
+                        ? <span id="etc-input">{completionTimeEdit/60} h</span>
+                        : <span id="etc-input">{completionTimeEdit} min</span>}
+                        <div>
+
                         <button value="increaseTime" onClick={handleTime}>&uarr;</button>
                         <button value="decreaseTime" onClick={handleTime}>&darr;</button>                    
+
+                        </div>
+                        
                     </div>
 
                     <div className="description-block">
