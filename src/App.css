@@ -38,6 +38,13 @@ h1 {
     border-radius: 10px;
 }
 
+/* dashboard */
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+}
+
 /* Board */
 
 .board-container {
@@ -182,8 +189,8 @@ h1 {
 /* ---new task--- */
 
 
-.new-task-container {
-    margin: 5px;
+.new-task-button {
+    display: inline-block;
 }
 
 .new-task-popup {
@@ -278,3 +285,20 @@ h1 {
     border-color: black;
     
 }
+
+/* week */
+
+.week-container {
+    display: flex;
+}
+
+.day-card {
+    width: 100%;
+    text-align: center;
+    display: flex;
+}
+
+.day-column{
+    width: 100%;
+}
+

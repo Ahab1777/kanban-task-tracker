@@ -24,16 +24,21 @@ function NewTask() {
         setColorCode('')
     }
 
-    //useRef for modal form and its toggle function - also responsible for masking background while modal is open
+     //useRef for modal form and its toggle function - also responsible for masking background while modal is open
     const newTaskModal = useRef(null)
 
     function toggleNewTaskModal() {
+
         if (!newTaskModal.current){
             return;
         }
+        //ensures that states are empty when opening and closing modal
+        resetStates()
+        
         newTaskModal.current.hasAttribute("open")
         ? resetStates() && newTaskModal.current.close()
         : newTaskModal.current.showModal()
+
     }
 
     //handle user typing
@@ -56,17 +61,17 @@ function NewTask() {
         switch (timeCommand) {
             case "decreaseTime":
                 //do not decrease time below 15min
-                if(completionTime <= 15 ){
+                if(completionTime <= 60 ){
                     break;
                 }
-                setCompletionTime(prevTime => prevTime - 15);
+                setCompletionTime(prevTime => prevTime - 60);
                 break;
             case "increaseTime":
                 //do not increase time above 480min/8h
                 if(completionTime >= 480 ){
                     break;
                 }
-                setCompletionTime(prevTime => prevTime + 15);
+                setCompletionTime(prevTime => prevTime + 60);
                 break;
             default:
                 break;
