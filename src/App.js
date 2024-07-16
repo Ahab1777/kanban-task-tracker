@@ -1,16 +1,22 @@
 import './App.css';
 import NewTask from './components/NewTask';
-import BoardCard from './components/BoardCard';
 import WeekPlanner from './components/WeekPlanner';
 import { useState, createContext } from 'react';
+import BoardContainer from './components/BoardContainer';
 
 export const KanbanContext = createContext(null)
 
+const SCREENS = {
+  weekPlanner: 'WeekPlanner',
+  boardContainer: 'BoardContainer'
+}
+
+
 function App() {
 
-  
-  const [taskTitle, setTaskTitle] = useState("")
-  const [taskDescription, setTaskDescription] = useState("")
+  const [screen, setScreen] = useState(SCREENS.weekPlanner)
+  // const [taskTitle, setTaskTitle] = useState("")
+  // const [taskDescription, setTaskDescription] = useState("")
   const [taskList, setTaskList] = useState([
     {
       title: "wash dishes",
@@ -38,6 +44,14 @@ function App() {
   
   ])
 
+  function toggleScreen(e) {
+    const currentScreen = e.target.value;
+    if (currentScreen === screen) {
+      return
+    } else if (currentScreen !== screen){
+      setScreen(currentScreen)
+    }
+  }
 
   return (
     <>
@@ -45,8 +59,11 @@ function App() {
 
     <h1>Kanban Week Planner</h1>
 
-      <KanbanContext.Provider value={{taskTitle, setTaskTitle, taskDescription, setTaskDescription, taskList, setTaskList}}>
-           
+      {/* previsamente retirados do provider => taskTitle, setTaskTitle, taskDescription, setTaskDescription,  */}
+      <KanbanContext.Provider value={{taskList, setTaskList}}> 
+           {/* -passar a o atual board de tarefas para um componente único.
+                - criar modal com ternary operator para dar switch entre week planner e boardlist  */}
+
       <div className='dashboard'>
         <div className='new-task-button'>
 
@@ -55,28 +72,31 @@ function App() {
           <span> to add a new task</span>
 
         </div>
+        <div>
+          <span>Click </span>
+          <button value={SCREENS.boardContainer} onClick={toggleScreen}>Here</button>   
+          <span> see your backlog</span>
+        </div>
 
         <div className='week-button'>
           <span>Click </span>
-          <NewTask/>      
+          <button value={SCREENS.weekPlanner} onClick={toggleScreen}>Here</button>      
           <span> to manage your week</span>
         </div>
         
       </div>
-      
-        <WeekPlanner taskList={taskList}/>
-      
+        {/* switch case top render dashboard based on the screen variable state */}
+        {(() => {
+          switch (screen) {
+            case 'WeekPlanner': 
+              return <WeekPlanner></WeekPlanner>;
+            case 'BoardContainer': 
+              return <BoardContainer></BoardContainer>;
+            default: 
+              return <WeekPlanner></WeekPlanner>
+          }
+        })()}
 
-      <div className='board-container'>
-
-      {taskList.map((task, i) => {
-        return (
-          <BoardCard key={i} index={i} title={task.title} description={task.description} createdOn={task.createdOn} etc={task.etc} colorCode={task.colorCode}>  
-          </BoardCard>
-        )        
-      })}
-
-      </div>
      
       
 

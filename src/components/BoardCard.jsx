@@ -3,7 +3,7 @@ import { KanbanContext } from "../App"
 import EditTask from "./EditTask"
 import DeleteConfirmation from "./DeleteConfirmation"
 
-export const BoardContext = createContext(null)
+// export const BoardContext = createContext(null)
 
 
 
