@@ -22,7 +22,7 @@ function App() {
       title: "wash dishes",
       description:"bla bla bla",
       createdOn: '3/July/2024 - 10:17',
-      fullDate: 'qwe',
+      fullDate: new Date(2024, 6, 19, 10),
       etc: '60' ,
       colorCode: '#add8e6'
     },
@@ -30,6 +30,7 @@ function App() {
       title: "boletos",
       description: 'pay pay pay pay',
       createdOn: '3/July/2024 - 10:17',
+      fullDate: new Date(2024, 6, 16, 10),
       etc: '120' ,
       colorCode: '#FFFF00'
     },
@@ -37,6 +38,7 @@ function App() {
       title: "learn to fly",
       description: "buy wings and jump from balcony",
       createdOn: '3/July/2024 - 10:17',
+      fullDate: new Date(2024, 6, 17, 10),
       etc: '240' ,
       colorCode: '#FF0000'
     },

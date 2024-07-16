@@ -84,6 +84,7 @@ const handleSubmit = (e) => {
     const currentDate = new Date();
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const createdOn = `${currentDate.getDay()}/${months[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
+    console.log(currentDate)
     const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription, createdOn, fullDate: currentDate, etc: completionTime, colorCode}]
     toggleNewTaskModal()
     setTaskList(newTaskList);
