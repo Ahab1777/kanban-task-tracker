@@ -1,5 +1,6 @@
 import { useContext, useState, useRef} from "react";
 import { KanbanContext } from "../App";
+import { MONTHS } from "./util";
 
 
 //task
@@ -28,12 +29,12 @@ function NewTask() {
     const newTaskModal = useRef(null)
 
     function toggleNewTaskModal() {
-
+        //confirm that there is a useRef referenced
         if (!newTaskModal.current){
             return;
         }
         //ensures that states are empty when opening and closing modal
-        resetStates()
+        resetStates() 
         
         newTaskModal.current.hasAttribute("open")
         ? resetStates() && newTaskModal.current.close()
@@ -82,23 +83,19 @@ function NewTask() {
 const handleSubmit = (e) => {
     e.preventDefault()
     const currentDate = new Date();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const createdOn = `${currentDate.getDay()}/${months[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
-    console.log(currentDate)
+    const createdOn = `${currentDate.getDay()}/${MONTHS[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
     const newTaskList = [ ...taskList, {title: taskTitle, description: taskDescription, createdOn, fullDate: currentDate, etc: completionTime, colorCode}]
-    toggleNewTaskModal()
     setTaskList(newTaskList);
+    toggleNewTaskModal()
 }
             
             return(
                 <>
     <button className="new-task-button" onClick={toggleNewTaskModal}>Here</button>
 
-        
         <dialog ref={newTaskModal} style={{backgroundColor: colorCode}}>
 
-
-            <form className="new-task-form" disabled={true} method="dialog">
+            <form onSubmit={handleSubmit} className="new-task-form"  method="dialog">
                 <button className="close-button-new-task" onClick={toggleNewTaskModal}>X</button>
 
                 <div className="title-block">
@@ -116,7 +113,6 @@ const handleSubmit = (e) => {
                     ></input>
 
                 </div>
-
                 <div className="color-block">
                     <label htmlFor="radioBlue">Blue</label>
                     <input 
@@ -183,7 +179,7 @@ const handleSubmit = (e) => {
 
                 <button
                 className="confirm-button-new-task"
-                onClick={handleSubmit} 
+                // onClick={handleSubmit} 
                 type="submit"
                 >Submit
                 </button>

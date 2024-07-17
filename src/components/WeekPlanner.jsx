@@ -1,26 +1,36 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { KanbanContext } from "../App"
-import { range, getMonday, areDatesSame, addDateBy } from "./util"
-
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+import { range, getMonday, areDatesSame, addDateBy, MONTHS, DAYS } from "./util"
 
 const WeekPlanner = () => {
-    const {taskList, setTaskList} = useContext(KanbanContext)
-
+    // const {taskList, setTaskList} = useContext(KanbanContext)
+    const [mondayDate, setMondayDate] = useState(getMonday())
+    const [sundayDate, setSundayDate] = useState(addDateBy(mondayDate, 7))
 
     let colorStyle = {
-        'background-color': '#ff3e90',
+        backgroundColor: 'rgba(255, 255, 0, 0.5)',
     };
 
     const isToday = (index) => {
-        console.log('new date', new Date())
-        // console.log('getMonday', new Date(getMonday()))
-        console.log('addDateBy', addDateBy(getMonday(), index))
         return areDatesSame(new Date(), addDateBy(getMonday(), index))
     } 
 
+    const prevWeek = () => setMondayDate(addDateBy(mondayDate, -7));
+    const nextWeek = () => setMondayDate(addDateBy(mondayDate, 7));
+
+    
+
     return(
         <>
+        <div className="week-selector">
+            {/* <button onClick={() => prevWeek()}>Previous</button> */}
+            {/* <button onClick={() => nextWeek()}>Next</button> */}
+            {/* <p>Today: {new Date().toDateString()}</p> */}
+            <p>From: {mondayDate.toDateString()}</p>
+            <p>To: {sundayDate.toDateString()}</p>
+
+
+        </div>
         <div className="calendar-grid">
             <div className="hours-lines">
                 <span className="hour-row"></span>
