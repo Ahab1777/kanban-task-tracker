@@ -5,7 +5,8 @@ import { range, getMonday, areDatesSame, addDateBy, MONTHS, DAYS } from "./util"
 const WeekPlanner = () => {
     // const {taskList, setTaskList} = useContext(KanbanContext)
     const [mondayDate, setMondayDate] = useState(getMonday())
-    const [sundayDate, setSundayDate] = useState(addDateBy(mondayDate, 7))
+    // const [sundayDate, setSundayDate] = useState(addDateBy(getMonday(), 7))
+    const sundayDate = addDateBy(getMonday(), 6)
 
     let colorStyle = {
         backgroundColor: 'rgba(255, 255, 0, 0.5)',
@@ -18,6 +19,16 @@ const WeekPlanner = () => {
     const prevWeek = () => setMondayDate(addDateBy(mondayDate, -7));
     const nextWeek = () => setMondayDate(addDateBy(mondayDate, 7));
 
+    // const displayDateByDay = (day) => {
+    //     switch(day){
+    //         case 'monday':
+    //             return mondayDate.toDateString()
+    //         case 'sunday':
+    //             return sundayDate.toDateString();
+    //         default:
+    //             return
+    //     }
+    // }
     
 
     return(
