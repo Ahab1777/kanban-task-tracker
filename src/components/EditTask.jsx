@@ -81,12 +81,21 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
             <dialog ref={editTaskModal} style={{backgroundColor: colorCodeEdit}}>
 
 
-                <form className="new-task-form" method="dialog">
-                    <button className="close-button-new-task" onClick={toggleEditTaskModal}>X</button>
+                <form 
+                // onSubmit={handleEdit} 
+                className="new-task-form" 
+                method="dialog">
+                    <button 
+                    type="button" 
+                    className="close-button-new-task" 
+                    onClick={toggleEditTaskModal}>X</button>
 
-                    <div className="title-block">
+                    <div 
+                    className="title-block">
 
-                        <label htmlFor="taskTitle">Title</label>
+                        <label 
+                        htmlFor="taskTitle"
+                        >Title</label>
                         <input className="task-title-input"
                         name="taskTitle"
                         id="taskTitle"
@@ -168,7 +177,7 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
                     <button
                     className="confirm-button-new-task"
                     onClick={handleEdit} 
-                    type="submit"
+                    type="button" //This way there is no submit event, just the edit funtion is called.
                     >Edit
                     </button>
 

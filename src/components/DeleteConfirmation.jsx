@@ -18,12 +18,16 @@ const DeleteConfirmation = ({index, title, DeleteTask}) => {
         <button onClick={toggleDeleteModal}>Delete</button>
         <dialog ref={deleteModal}> 
         Confirm deletion of 
-        <span>{title}</span>
-        <button onClick={toggleDeleteModal}>Cancel</button>
-        <button onClick={() => {
+        <span> {title}</span>
+        <button 
+        onClick={toggleDeleteModal}
+        >Cancel</button>
+        <button 
+        onClick={() => {
             DeleteTask()
             toggleDeleteModal()
-            }}>Delete</button>
+            }}
+        >Delete</button>
         </dialog>
         </>
     )

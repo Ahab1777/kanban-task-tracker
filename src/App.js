@@ -14,7 +14,7 @@ const SCREENS = {
 
 function App() {
 
-  const [screen, setScreen] = useState(SCREENS.boardContainer)
+  const [screen, setScreen] = useState(SCREENS.weekPlanner)
   // const [taskTitle, setTaskTitle] = useState("")
   // const [taskDescription, setTaskDescription] = useState("")
   const [taskList, setTaskList] = useState([
@@ -43,10 +43,6 @@ function App() {
       colorCode: '#FF0000'
     }])
 
-  const updateList = (newTaskObject) => {
-    setTaskList((prevList) => [...prevList, newTaskObject])
-    
-  }
 
   function toggleScreen(e) {
     const currentScreen = e.target.value;
@@ -61,8 +57,7 @@ function App() {
 
   const providerValue = {
     taskList,
-    // setTaskList
-    updateList
+    setTaskList
   }
 
   return (

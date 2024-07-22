@@ -9,7 +9,7 @@ import { MONTHS } from "./util";
 
 function NewTask() {
     //grab context from App
-    const {updateList} = useContext(KanbanContext)
+    const {setTaskList} = useContext(KanbanContext)
 
     //create states to set new task
     const [taskTitle, setTaskTitle] = useState("")
@@ -28,8 +28,8 @@ function NewTask() {
      //useRef for modal form and its toggle function - also responsible for masking background while modal is open
     const newTaskModal = useRef(null)
 
-    const [dialogIsOpen, setDialogIsOpen] = useState(false)
-    const closeDialog = () => setDialogIsOpen(false)
+    // const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    // const closeDialog = () => setDialogIsOpen(false)
 
     function toggleNewTaskModal() {
         //confirm that there is a useRef referenced
@@ -39,7 +39,7 @@ function NewTask() {
         //ensures that states are empty when opening and closing modal
         resetStates() 
         console.log(newTaskModal.current.hasAttribute("open"))
-
+        //TODO change this back to ternary
         if (newTaskModal.current.hasAttribute("open")) {
             resetStates()
             newTaskModal.current.close()
@@ -95,8 +95,8 @@ const handleSubmit = (e) => {
     e.preventDefault()
     const currentDate = new Date();
     const createdOn = `${currentDate.getDay()}/${MONTHS[currentDate.getMonth()]}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`
-    const newTaskList = {title: taskTitle, description: taskDescription, createdOn, fullDate: currentDate, etc: completionTime, colorCode}
-    updateList(newTaskList);
+    const newTask = {title: taskTitle, description: taskDescription, createdOn, fullDate: currentDate, etc: completionTime, colorCode}
+    setTaskList(prevList => [...prevList, newTask]);
     toggleNewTaskModal()
     console.log('handleSubmit was activated')
     console.log(e)
@@ -106,13 +106,19 @@ const handleSubmit = (e) => {
                 <>
     <button className="new-task-button" onClick={toggleNewTaskModal}>Here</button>
 
-        <dialog ref={newTaskModal} open={dialogIsOpen} style={{backgroundColor: colorCode}}>
+        <dialog 
+        ref={newTaskModal} 
+        // open={dialogIsOpen} 
+        style={{backgroundColor: colorCode}}>
 
-            <form onSubmit={handleSubmit} className="new-task-form">
-                <button className="close-button-new-task" onClick={() => {
-                    closeDialog()
-                    resetStates()
-                }}>X</button>
+            <form onSubmit={handleSubmit} className="new-task-form" method="dialog">
+                <button 
+                    className="close-button-new-task" 
+                    onClick={() => {
+                        toggleNewTaskModal()
+                }} 
+                    type="button"
+                    formNoValidate>X</button>
 
                 <div className="title-block">
                     
@@ -193,10 +199,10 @@ const handleSubmit = (e) => {
                 </div>
 
 
-                <button submitting
+                <button
                 className="confirm-button-new-task"
                 // onClick={handleSubmit} 
-                type="submit"
+                // type="submit" 
                 >Submit
                 </button>
 
