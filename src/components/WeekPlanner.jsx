@@ -2,30 +2,45 @@ import { useContext, useState } from "react"
 import { KanbanContext } from "../App"
 import { range, getMonday, areDatesSame, addDateBy, MONTHS, DAYS } from "./util"
 
+
+const getFridayFromMonday = () => {
+    return addDateBy(getMonday(), 6)
+}
+
+
 const WeekPlanner = () => {
     // const {taskList, setTaskList} = useContext(KanbanContext)
-    const [mondayDate, setMondayDate] = useState(getMonday())
-    const [sundayDate, setSundayDate] = useState(addDateBy(getMonday(), 6))
-    const [currentDay, setCurrentDate] = useState(getMonday())
-
-    let colorStyle = {
-        backgroundColor: 'rgba(255, 255, 0, 0.5)',
-    };
-
-    console.log('current day', currentDay)
-
-    const isToday = (index) => {
-        return areDatesSame(new Date(), addDateBy(currentDay, index))
-    } 
-
+    const [mondayDate, setMondayDate] = useState(getMonday)
+    const [sundayDate, setSundayDate] = useState(getFridayFromMonday)
+    
+    console.log('mondayDate', mondayDate)
+    console.log('getMonday()', getMonday())
+    
     const prevWeek = () => {
-        setMondayDate(addDateBy(mondayDate, -7))
-        setSundayDate(addDateBy(sundayDate, -7))
-        };
+        const prevMonday = addDateBy(mondayDate, -7)
+        const prevSunday = addDateBy(sundayDate, -7)
+        setMondayDate(prevMonday)
+        setSundayDate(prevSunday)
+        console.log('mondaydate', mondayDate)
+    };
     const nextWeek = () => {
-        setMondayDate(addDateBy(mondayDate, 7))
-        setSundayDate(addDateBy(sundayDate, 7))
+        const nextMonday = addDateBy(mondayDate, 7)
+        const nextSunday = addDateBy(sundayDate, 7)
+        setMondayDate(nextMonday)
+        setSundayDate(nextSunday)
+    };
+    
+    
+        let colorStyle = {
+            backgroundColor: 'rgba(255, 255, 0, 0.5)',
         };
+    
+    
+        //impura
+        // const isToday = (index) => {
+        //     return areDatesSame(new Date(), addDateBy(mondayDate, index))
+        // } 
+
 
     // const displayDateByDay = (day) => {
     //     switch(day){
@@ -42,12 +57,12 @@ const WeekPlanner = () => {
     return(
         <>
         <div className="week-selector">
-            <button onClick={() => {
-                prevWeek()
-                console.log('current day after previvous clicked', currentDay)
-                console.log('mondayDate after previvous clicked', mondayDate)
-                }}>Previous</button>
-            <button onClick={() => nextWeek()}>Next</button>
+            <button 
+            onClick={() => prevWeek()}
+            >Previous</button>
+            <button 
+            onClick={() => nextWeek()}
+            >Next</button>
             <p>Today: {new Date().toDateString()}</p>
             <p>From: {mondayDate.toDateString()}</p>
             <p>To: {sundayDate.toDateString()}</p>
@@ -63,17 +78,25 @@ const WeekPlanner = () => {
             </div>
             <div className="week-column">
                 {DAYS.map((day, index) => (
+                    //passar isToday como props com areDatesSame. O elemento que isToday for true será estilizado de acordo
+
+                    // isToday(index) 
+                    // ? <div 
+                    // className="day" 
+                    // key={index}
+                    // style={colorStyle}
+                    // >{day}</div>
+                    // : 
+                    <div 
+                    className="day-wrapper"
+                    isToday={areDatesSame(new Date(), addDateBy(mondayDate, index))} >
+
+                        <div 
+                        className="day-column" 
+                        key={index}
+                        >{day}</div>
+                    </div>
                     
-                    isToday(index) 
-                    ? <div 
-                    className="day" 
-                    key={index}
-                    style={colorStyle}
-                    >{day}</div>
-                    : <div 
-                    className="day-column" 
-                    key={index}
-                    >{day}</div>
                 ))}
             </div>
         </div>
