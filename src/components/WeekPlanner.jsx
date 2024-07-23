@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useMemo } from "react"
 import { KanbanContext } from "../App"
 import { range, getMonday, areDatesSame, addDateBy, MONTHS, DAYS } from "./util"
 
@@ -13,16 +13,13 @@ const WeekPlanner = () => {
     const [mondayDate, setMondayDate] = useState(getMonday)
     const [sundayDate, setSundayDate] = useState(getFridayFromMonday)
     
-    console.log('mondayDate', mondayDate)
-    console.log('getMonday()', getMonday())
-    
     const prevWeek = () => {
         const prevMonday = addDateBy(mondayDate, -7)
         const prevSunday = addDateBy(sundayDate, -7)
         setMondayDate(prevMonday)
         setSundayDate(prevSunday)
-        console.log('mondaydate', mondayDate)
     };
+
     const nextWeek = () => {
         const nextMonday = addDateBy(mondayDate, 7)
         const nextSunday = addDateBy(sundayDate, 7)
@@ -30,28 +27,19 @@ const WeekPlanner = () => {
         setSundayDate(nextSunday)
     };
     
-    
-        let colorStyle = {
-            backgroundColor: 'rgba(255, 255, 0, 0.5)',
-        };
-    
-    
-        //impura
-        // const isToday = (index) => {
-        //     return areDatesSame(new Date(), addDateBy(mondayDate, index))
-        // } 
+    //calculate is-today class
+    const isTodayArray = useMemo(() => DAYS.map(day => {
+      const referenceDay = mondayDate;
+      const currentMapDateindex = DAYS.indexOf(day);
+      const 
 
 
-    // const displayDateByDay = (day) => {
-    //     switch(day){
-    //         case 'monday':
-    //             return mondayDate.toDateString()
-    //         case 'sunday':
-    //             return sundayDate.toDateString();
-    //         default:
-    //             return
-    //     }
-    // }
+    }), [mondayDate])
+
+    let colorStyle = {
+        backgroundColor: 'rgba(255, 255, 0, 0.5)',
+    };
+    
     
 
     return(
@@ -78,23 +66,12 @@ const WeekPlanner = () => {
             </div>
             <div className="week-column">
                 {DAYS.map((day, index) => (
-                    //passar isToday como props com areDatesSame. O elemento que isToday for true será estilizado de acordo
-
-                    // isToday(index) 
-                    // ? <div 
-                    // className="day" 
-                    // key={index}
-                    // style={colorStyle}
-                    // >{day}</div>
-                    // : 
-                    <div 
-                    className="day-wrapper"
-                    isToday={areDatesSame(new Date(), addDateBy(mondayDate, index))} >
-
+                    <div className="day-wrapper" key={index}>
                         <div 
-                        className="day-column" 
+                        className={"day-column " + (isTodayArray[index] ? "is-today" : '')}
                         key={index}
-                        >{day}</div>
+                        >{day}
+                        </div>
                     </div>
                     
                 ))}
