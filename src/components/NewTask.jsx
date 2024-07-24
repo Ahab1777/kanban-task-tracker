@@ -21,7 +21,7 @@ function NewTask() {
     function resetStates() {
         setTaskTitle("")
         setTaskDescription("")
-        setCompletionTime(15)
+        setCompletionTime(0.5)
         setColorCode('')
     }
 
@@ -58,6 +58,7 @@ function NewTask() {
         const {name, value} = target
         if (name === "taskTitle") setTaskTitle(value)
         if (name === "taskDescription") setTaskDescription(value)
+        if (name === "etc-input") setCompletionTime(parseInt(value, 10))
     }
 
     //handle color change
@@ -66,29 +67,29 @@ function NewTask() {
     }
 
     //handle task time button
-    function handleTime(e) {
-        const timeCommand = e.target.value;
-        e.preventDefault()
+    // function handleTime(e) {
+    //     const timeCommand = e.target.value;
+    //     e.preventDefault()
         
-        switch (timeCommand) {
-            case "decreaseTime":
-                //do not decrease time below 15min
-                if(completionTime <= 60 ){
-                    break;
-                }
-                setCompletionTime(prevTime => prevTime - 60);
-                break;
-            case "increaseTime":
-                //do not increase time above 480min/8h
-                if(completionTime >= 480 ){
-                    break;
-                }
-                setCompletionTime(prevTime => prevTime + 60);
-                break;
-            default:
-                break;
-            }
-            }
+    //     switch (timeCommand) {
+    //         case "decreaseTime":
+    //             //do not decrease time below 15min
+    //             if(completionTime <= 60 ){
+    //                 break;
+    //             }
+    //             setCompletionTime(prevTime => prevTime - 60);
+    //             break;
+    //         case "increaseTime":
+    //             //do not increase time above 480min/8h
+    //             if(completionTime >= 480 ){
+    //                 break;
+    //             }
+    //             setCompletionTime(prevTime => prevTime + 60);
+    //             break;
+    //         default:
+    //             break;
+    //         }
+    //         }
             
 //send newly created task to taskList on App
 const handleSubmit = (e) => {
@@ -170,8 +171,8 @@ const handleSubmit = (e) => {
                 </div>
 
                 <div className="time-block">
-                    <label htmlFor="etc-input">Time to Complete</label>
-                    {completionTime >= 60 
+                    <label htmlFor="etc-input">Time to Complete (hours)</label>
+                    {/* {completionTime >= 60 
                     ? <span>{completionTime/60} h</span>
                     : <span>{completionTime} min</span>}
 
@@ -179,7 +180,8 @@ const handleSubmit = (e) => {
                     <button value="increaseTime" onClick={handleTime}>&uarr;</button>
                     <button value="decreaseTime" onClick={handleTime}>&darr;</button>                    
 
-                    </div>
+                    </div> */}
+                    <input onChange={handleChange} type="number" name="etc-input"  min="0.5" max="8" step="0.5" placeholder="0.5"></input>
                 </div>
 
                 <div className="description-block">

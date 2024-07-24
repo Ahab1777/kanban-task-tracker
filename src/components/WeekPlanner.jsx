@@ -1,7 +1,9 @@
 import { useContext, useState, useMemo } from "react"
 import { KanbanContext } from "../App"
 import { range, getMonday, areDatesSame, addDateBy, MONTHS, DAYS } from "./util"
-
+import { addDays, isToday } from 'date-fns'
+import {DndContext, closestCenter} from '@dnd-kit/core'
+import { Task } from "./Task"
 
 const getFridayFromMonday = () => {
     return addDateBy(getMonday(), 6)
@@ -9,7 +11,7 @@ const getFridayFromMonday = () => {
 
 
 const WeekPlanner = () => {
-    // const {taskList, setTaskList} = useContext(KanbanContext)
+    const {taskList, setTaskList} = useContext(KanbanContext)
     const [mondayDate, setMondayDate] = useState(getMonday)
     const [sundayDate, setSundayDate] = useState(getFridayFromMonday)
     
@@ -29,10 +31,10 @@ const WeekPlanner = () => {
     
     //calculate is-today class
     const isTodayArray = useMemo(() => DAYS.map(day => {
-      const referenceDay = mondayDate;
-      const currentMapDateindex = DAYS.indexOf(day);
-      const 
-
+        const referenceDay = mondayDate;
+        const currentMapDateindex = DAYS.indexOf(day);
+        const currentMapDate = addDays(referenceDay, currentMapDateindex)
+        return isToday(currentMapDate)
 
     }), [mondayDate])
 
@@ -65,16 +67,20 @@ const WeekPlanner = () => {
                 ))}
             </div>
             <div className="week-column">
+                <DndContext collisionDetection={closestCenter}>
                 {DAYS.map((day, index) => (
-                    <div className="day-wrapper" key={index}>
+                    <div className="day-wrapper" key={index} taskList={taskList}>
                         <div 
                         className={"day-column " + (isTodayArray[index] ? "is-today" : '')}
                         key={index}
                         >{day}
+                        {taskList.map(task => (
+                            <Task task={task}></Task>
+                        ))}
                         </div>
                     </div>
-                    
                 ))}
+                </DndContext>
             </div>
         </div>
         </>

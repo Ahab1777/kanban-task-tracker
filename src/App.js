@@ -15,31 +15,32 @@ const SCREENS = {
 function App() {
 
   const [screen, setScreen] = useState(SCREENS.weekPlanner)
-  // const [taskTitle, setTaskTitle] = useState("")
-  // const [taskDescription, setTaskDescription] = useState("")
   const [taskList, setTaskList] = useState([
     {
+      id: 1,
       title: "wash dishes",
       description:"bla bla bla",
       createdOn: '3/July/2024 - 10:17',
       fullDate: new Date(2024, 6, 19, 10),
-      etc: '60' ,
+      etc: 2 ,
       colorCode: '#add8e6'
     },
     {
+      id: 2,
       title: "boletos",
       description: 'pay pay pay pay',
       createdOn: '3/July/2024 - 10:17',
       fullDate: new Date(2024, 6, 16, 10),
-      etc: '120' ,
+      etc: 3 ,
       colorCode: '#FFFF00'
     },
     {
+      id: 3,
       title: "learn to fly",
       description: "buy wings and jump from balcony",
       createdOn: '3/July/2024 - 10:17',
       fullDate: new Date(2024, 6, 17, 10),
-      etc: '240' ,
+      etc: 3 ,
       colorCode: '#FF0000'
     }])
 
@@ -66,11 +67,7 @@ function App() {
 
     <h1>Kanban Week Planner</h1>
 
-      {/* previsamente retirados do provider => taskTitle, setTaskTitle, taskDescription, setTaskDescription,  */}
       <KanbanContext.Provider value={providerValue}> 
-           {/* -passar a o atual board de tarefas para um componente único.
-                - criar modal com ternary operator para dar switch entre week planner e boardlist  */}
-
       <div className='dashboard'>
         <div className='new-task-button'>
 

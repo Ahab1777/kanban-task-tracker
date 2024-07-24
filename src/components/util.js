@@ -26,3 +26,9 @@ export const addDateBy = (date, count) => {
 export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 export const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+//universal CSS parameters
+export const HOUR_HEIGHT = 20
+export const TASK_BORDER_WIDTH = 1
+export const TASK_MARGIN = 0
+export const TASK_FONT_SIZE = 16

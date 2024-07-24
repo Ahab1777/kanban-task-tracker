@@ -48,6 +48,8 @@ const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
                 index={index} 
                 title={title} 
                 DeleteTask={DeleteTask}/>
+
+                <button onClick={() => {console.log(taskList)}}>Log current task</button>
             
                
             </div>
