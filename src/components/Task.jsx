@@ -12,7 +12,17 @@ export const Task = ({task}) => {
         height: `${totalHeight}px`,
         paddingTop: `${paddingTop}px`
     }
-    
+
+
+
+
+
+
+    //do not render render task if week not set
+    // if(task.scheduledForWeek === ''){
+    //     return;
+    // }
+
     return (
         <div style={taskStyle} className="task">
             <span>{task.title}</span>

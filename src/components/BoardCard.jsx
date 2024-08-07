@@ -31,10 +31,8 @@ const BoardCard = ({title, description, index, createdOn, etc, colorCode}) => {
                 <label htmlFor="createdOn"></label>
                 <p name="createdOn">{createdOn}</p>
                 <label htmlFor="etc"></label>
-                <p name="etc">ETC:
-                     {etc >= 60 
-                    ? <span>{etc/60} h</span>
-                    : <span>{etc} min</span>}</p>
+                <p name="etc">ETC: 
+                     <span> {etc} h</span></p>
 
                 <EditTask 
                 index={index} 

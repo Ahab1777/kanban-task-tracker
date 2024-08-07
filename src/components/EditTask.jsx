@@ -57,17 +57,17 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
         switch (timeCommand) {
             case "decreaseTime":
                 //do not decrease time below 15min
-                if(completionTimeEdit <= 15 ){
+                if(completionTimeEdit <= 0.5 ){
                     break;
                 }
-                setCompletionTimeEdit(prevTime => prevTime - 15);
+                setCompletionTimeEdit(prevTime => prevTime - 0.5);
                 break;
             case "increaseTime":
                 //do not increase time above 480min/8h
-                if(completionTimeEdit >= 480 ){
+                if(completionTimeEdit >= 8 ){
                     break;
                 }
-                setCompletionTimeEdit(prevTime => prevTime + 15);
+                setCompletionTimeEdit(prevTime => prevTime + 0.5);
                 break;
             default:
                 break;
@@ -145,9 +145,7 @@ const EditTask = ({title, description, index, createdOn, etc, colorCode}) => {
 
                     <div className="time-block">
                         <label htmlFor="etc-input">Time to Complete</label>
-                        {completionTimeEdit >= 60 
-                        ? <span id="etc-input">{completionTimeEdit/60} h</span>
-                        : <span id="etc-input">{completionTimeEdit} min</span>}
+                          <span id="etc-input">{completionTimeEdit} hours</span>
                         <div>
 
                         <button value="increaseTime" onClick={handleTime}>&uarr;</button>

@@ -23,7 +23,10 @@ function App() {
       createdOn: '3/July/2024 - 10:17',
       fullDate: new Date(2024, 6, 19, 10),
       etc: 2 ,
-      colorCode: '#add8e6'
+      colorCode: '#add8e6',
+      scheduledTime: '',
+      scheduledWeek: 33,
+      scheduledDay: 3
     },
     {
       id: 2,
@@ -32,7 +35,10 @@ function App() {
       createdOn: '3/July/2024 - 10:17',
       fullDate: new Date(2024, 6, 16, 10),
       etc: 3 ,
-      colorCode: '#FFFF00'
+      colorCode: '#FFFF00',
+      scheduledTime: '',
+      scheduledWeek: '',
+      scheduledDay: 3
     },
     {
       id: 3,
@@ -41,7 +47,10 @@ function App() {
       createdOn: '3/July/2024 - 10:17',
       fullDate: new Date(2024, 6, 17, 10),
       etc: 3 ,
-      colorCode: '#FF0000'
+      colorCode: '#FF0000',
+      scheduledTime: 9,
+      scheduledWeek: 32,
+      scheduledDay: 4
     }])
 
 
@@ -89,7 +98,7 @@ function App() {
         </div>
         
       </div>
-        {/* switch case top render dashboard based on the screen variable state */}
+        {/* switch dashboard based on the screen variable state */}
         {(() => {
           switch (screen) {
             case 'WeekPlanner': 
